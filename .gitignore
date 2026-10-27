@@ -1,2 +1,11 @@
 .DS_Store
 *.local.md
+
+# Server only: database login and statistics password
+connection.php
+staging_db.php
+
+# Backups and downloads
+DB archive/
+*.sql
+*.zip

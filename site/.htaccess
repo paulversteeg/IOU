@@ -1,0 +1,27 @@
+# Splitsy — server-instellingen voor snelheid en veiligheid.
+
+# Compressie: kleinere responses, vooral schelend op mobiel netwerk.
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml application/xml application/javascript
+</IfModule>
+
+# Cache het (zelden wijzigende) stylesheet in de browser; HTML zelf niet
+# cachen omdat dat steeds actuele bedragen moet tonen.
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 week"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Nooit de SQL-backups of .sql-bestanden publiek serveren.
+<FilesMatch "\.sql$">
+    Require all denied
+</FilesMatch>
+
+# Voorkom directory-listing van de backup-map.
+Options -Indexes
